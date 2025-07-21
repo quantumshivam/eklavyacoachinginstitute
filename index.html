@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eklavya Coaching Institute</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for a clean, classic look */
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .page {
+            display: none; /* Hide all pages by default */
+        }
+        .page.active {
+            display: block; /* Show only the active page */
+        }
+        main {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <div class="text-lg md:text-2xl font-bold text-indigo-600 cursor-pointer" onclick="navigateTo('home')">
+                Eklavya Coaching Institute
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="home">Home</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="courses">Courses</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="about">About</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="contact">Contact</a>
+                <button class="nav-link bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" data-page="login">
+                    Student Login
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button">
+                    <svg id="menu-open-icon" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                    <svg id="menu-close-icon" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <nav class="flex flex-col items-center space-y-4 py-4">
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="home">Home</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="courses">Courses</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="about">About</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="contact">Contact</a>
+                <button class="nav-link w-11/12 mx-4 bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" data-page="login">
+                    Student Login
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Home Page -->
+        <div id="page-home" class="page active">
+             <section class="bg-indigo-600 text-white">
+                <div class="container mx-auto px-4 sm:px-6 py-20 text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">A Foundation for Success</h1>
+                    <p class="text-lg md:text-xl mb-8">Join Eklavya Coaching Institute for excellence in studies from Class 6 to 10.</p>
+                    <button class="nav-link bg-white text-indigo-600 font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition duration-300" data-page="login">
+                        Take a Demo Test
+                    </button>
+                </div>
+            </section>
+            <section class="py-12 md:py-16">
+                <div class="container mx-auto px-4 sm:px-6">
+                    <h2 class="text-3xl font-bold text-center mb-12">Why Choose Us?</h2>
+                    <div class="grid md:grid-cols-3 gap-8 text-center">
+                        <div class="p-6 bg-white rounded-lg shadow-lg">
+                            <h3 class="text-xl font-semibold mb-2">Expert Faculty</h3>
+                            <p class="text-gray-600">Learn from the best minds in the industry with years of teaching experience.</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-lg shadow-lg">
+                            <h3 class="text-xl font-semibold mb-2">Comprehensive Material</h3>
+                            <p class="text-gray-600">Get access to well-researched and up-to-date study materials.</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-lg shadow-lg">
+                            <h3 class="text-xl font-semibold mb-2">Personalized Mentorship</h3>
+                            <p class="text-gray-600">Receive one-on-one guidance to track your progress and clear doubts.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Courses Page -->
+        <div id="page-courses" class="page">
+             <div class="container mx-auto px-4 sm:px-6 py-12 md:py-16">
+                <h2 class="text-3xl font-bold text-center mb-12">Our Programs</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <img src="https://placehold.co/600x400/3498db/ffffff?text=Class+6-8" alt="Middle School" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Middle School (Class 6-8)</h3>
+                            <p class="text-gray-600">Building strong foundations in core subjects like Maths, Science, and English.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                         <img src="https://placehold.co/600x400/2ecc71/ffffff?text=Class+9" alt="Class 9" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Class 9 Foundation</h3>
+                            <p class="text-gray-600">A crucial year to prepare for board exams and competitive tests.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                         <img src="https://placehold.co/600x400/e74c3c/ffffff?text=Class+10" alt="Class 10" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Class 10 Boards</h3>
+                            <p class="text-gray-600">Intensive program focused on achieving excellent results in board examinations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Page -->
+        <div id="page-about" class="page">
+            <div class="container mx-auto px-4 sm:px-6 py-12 md:py-16">
+                <h2 class="text-3xl font-bold text-center mb-8">About Eklavya Coaching Institute</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto text-center">
+                    Founded with the vision to provide quality education and mentorship, Eklavya Coaching Institute has been a beacon of hope for thousands of students. Our mission is to empower students with the knowledge and skills to achieve their academic and career goals. We believe in a holistic approach to learning that goes beyond textbooks.
+                </p>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="page-contact" class="page">
+             <div class="container mx-auto px-4 sm:px-6 py-12 md:py-16">
+                <h2 class="text-3xl font-bold text-center mb-12">Get In Touch</h2>
+                <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
+                    <form>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-semibold mb-2" for="name">Name</label>
+                            <input class="w-full px-3 py-2 border rounded-lg" type="text" id="name">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-semibold mb-2" for="email">Email</label>
+                            <input class="w-full px-3 py-2 border rounded-lg" type="email" id="email">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-semibold mb-2" for="message">Message</label>
+                            <textarea class="w-full px-3 py-2 border rounded-lg" id="message" rows="4"></textarea>
+                        </div>
+                        <button class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Page -->
+        <div id="page-login" class="page">
+            <div class="flex-grow flex items-center justify-center bg-gray-100 p-4">
+                <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg m-4">
+                    <h2 class="text-2xl font-bold text-center text-gray-800">Student Test Login</h2>
+                    <form id="login-form" class="space-y-6">
+                        <div>
+                            <label for="pin" class="text-sm font-semibold text-gray-600">Enter Your PIN</label>
+                            <input id="pin" type="password" class="w-full px-4 py-2 mt-2 text-lg border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="******">
+                        </div>
+                        <p id="login-error" class="text-sm text-red-500 hidden"></p>
+                        <div>
+                            <button id="login-button" type="submit" class="w-full py-3 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-400">
+                                Login to Test
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Page -->
+        <div id="page-test" class="page">
+            <div class="container mx-auto px-4 py-8 flex-grow">
+                <div id="test-container" class="max-w-3xl mx-auto bg-white p-6 md:p-8 rounded-xl shadow-2xl">
+                    <!-- Test content will be dynamically inserted here -->
+                </div>
+                 <div id="test-loader" class="text-center p-10">Loading Test...</div>
+            </div>
+        </div>
+
+        <!-- Results Page -->
+        <div id="page-results" class="page">
+            <div class="flex-grow flex items-center justify-center bg-gray-100 p-4">
+                <div id="results-container" class="w-full max-w-2xl p-8 space-y-6 bg-white rounded-xl shadow-lg text-center m-4">
+                    <!-- Results content will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Initializing Loader -->
+        <div id="app-loader" class="flex items-center justify-center h-screen bg-gray-100">
+            <div class="text-xl font-semibold text-center p-4">Initializing Institute Portal...</div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-auto">
+        <div class="container mx-auto px-4 sm:px-6 py-4 text-center">
+            <p>&copy; 2024 Eklavya Coaching Institute. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <!-- Firebase and App Logic -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, collection, getDocs, setDoc, query, where, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- Firebase Configuration ---
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        
+        // --- App State ---
+        let db, auth;
+        let currentStudent = null;
+        let currentTest = null;
+        let testTimer = null;
+        const studentAnswers = {};
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+        // --- UI Elements ---
+        const pages = document.querySelectorAll('.page');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const appLoader = document.getElementById('app-loader');
+        const mainContent = document.querySelector('main');
+        
+        // --- Navigation Logic ---
+        function navigateTo(pageId) {
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            window.scrollTo(0, 0); // Scroll to top on page change
+            
+            // Close mobile menu on navigation
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.add('hidden');
+            document.getElementById('menu-open-icon').classList.remove('hidden');
+            document.getElementById('menu-close-icon').classList.add('hidden');
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                navigateTo(pageId);
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            document.getElementById('menu-open-icon').classList.toggle('hidden');
+            document.getElementById('menu-close-icon').classList.toggle('hidden');
+        });
+
+        // --- Firebase Initialization and Auth ---
+        async function initializeAndAuth() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                setLogLevel('debug');
+
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        console.log("User is signed in:", user.uid);
+                        // Uncomment the line below ONLY for the first time to populate your Firestore DB.
+                        // await addMockData(); 
+                        appLoader.style.display = 'none';
+                        mainContent.style.display = 'block';
+                    } else {
+                         // Handle signed out state if necessary
+                    }
+                });
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (error) {
+                console.error("Initialization Error:", error);
+                appLoader.innerHTML = `<div class="text-xl font-semibold text-center p-4 text-red-500">Error initializing application. Please refresh.</div>`;
+            }
+        }
+        
+        // --- Login Logic ---
+        const loginForm = document.getElementById('login-form');
+        const loginButton = document.getElementById('login-button');
+        const pinInput = document.getElementById('pin');
+        const loginError = document.getElementById('login-error');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const pin = pinInput.value;
+            if (!pin) {
+                loginError.textContent = 'Please enter your PIN.';
+                loginError.classList.remove('hidden');
+                return;
+            }
+
+            loginButton.disabled = true;
+            loginButton.textContent = 'Verifying...';
+            loginError.classList.add('hidden');
+
+            try {
+                const studentDocRef = doc(db, "artifacts", appId, "public", "data", "students", pin);
+                const studentDoc = await getDoc(studentDocRef);
+
+                if (studentDoc.exists()) {
+                    currentStudent = { pin, ...studentDoc.data() };
+                    navigateTo('test');
+                    loadTest();
+                } else {
+                    loginError.textContent = 'Invalid PIN. Please check and try again.';
+                    loginError.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error("Login Error:", err);
+                loginError.textContent = 'An error occurred. Please try again later.';
+                loginError.classList.remove('hidden');
+            } finally {
+                loginButton.disabled = false;
+                loginButton.textContent = 'Login to Test';
+                pinInput.value = '';
+            }
+        });
+
+        // --- Test Logic ---
+        const testContainer = document.getElementById('test-container');
+        const testLoader = document.getElementById('test-loader');
+
+        async function loadTest() {
+            testLoader.style.display = 'block';
+            testContainer.innerHTML = '';
+
+            try {
+                const testsCollectionRef = collection(db, "artifacts", appId, "public", "data", "tests");
+                const q = query(testsCollectionRef, where("course", "==", currentStudent.course));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    currentTest = querySnapshot.docs[0].data();
+                    renderQuestion(0);
+                    startTimer(300); // 5 minutes
+                } else {
+                    testContainer.innerHTML = `<p class="text-center text-red-500">No test found for your course.</p>`;
+                }
+            } catch (error) {
+                console.error("Error fetching test:", error);
+                testContainer.innerHTML = `<p class="text-center text-red-500">Failed to load the test.</p>`;
+            } finally {
+                 testLoader.style.display = 'none';
+            }
+        }
+
+        function renderQuestion(index) {
+            const question = currentTest.questions[index];
+            const optionsHtml = question.o.map((option, i) => `
+                <button data-answer="${option}" class="option-btn w-full text-left p-4 rounded-lg border-2 transition-all duration-200 ${studentAnswers[index] === option ? 'bg-indigo-500 border-indigo-500 text-white' : 'bg-white border-gray-300 hover:border-indigo-400'}">
+                    ${option}
+                </button>
+            `).join('');
+
+            const navigationHtml = `
+                <div class="flex justify-between items-center mt-8">
+                    <button id="prev-btn" ${index === 0 ? 'disabled' : ''} class="px-6 py-2 font-semibold text-white bg-gray-500 rounded-lg disabled:bg-gray-300">Previous</button>
+                    ${index === currentTest.questions.length - 1 ? 
+                        `<button id="submit-btn" class="px-6 py-2 font-semibold text-white bg-green-600 rounded-lg hover:bg-green-700">Submit Test</button>` :
+                        `<button id="next-btn" class="px-6 py-2 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Next</button>`
+                    }
+                </div>
+            `;
+
+            testContainer.innerHTML = `
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                    <h2 class="text-xl md:text-2xl font-bold text-indigo-700 text-center sm:text-left">${currentTest.testName}</h2>
+                    <div id="timer" class="text-lg font-semibold bg-red-100 text-red-700 px-4 py-2 rounded-lg shrink-0"></div>
+                </div>
+                <div class="mb-8">
+                    <p class="text-lg font-semibold mb-4">Question ${index + 1} of ${currentTest.questions.length}</p>
+                    <p class="text-xl text-gray-800">${question.q}</p>
+                </div>
+                <div class="space-y-4">${optionsHtml}</div>
+                ${navigationHtml}
+            `;
+
+            // Add event listeners
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    studentAnswers[index] = btn.getAttribute('data-answer');
+                    renderQuestion(index); // Re-render to show selection
+                });
+            });
+
+            if (document.getElementById('next-btn')) {
+                document.getElementById('next-btn').addEventListener('click', () => renderQuestion(index + 1));
+            }
+            if (document.getElementById('prev-btn')) {
+                document.getElementById('prev-btn').addEventListener('click', () => renderQuestion(index - 1));
+            }
+            if (document.getElementById('submit-btn')) {
+                document.getElementById('submit-btn').addEventListener('click', submitTest);
+            }
+        }
+
+        function startTimer(duration) {
+            let timeLeft = duration;
+            const timerEl = document.getElementById('timer');
+            
+            clearInterval(testTimer); // Clear any existing timer
+            testTimer = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                timerEl.textContent = `Time Left: ${minutes}:${seconds}`;
+
+                if (--timeLeft < 0) {
+                    clearInterval(testTimer);
+                    submitTest();
+                }
+            }, 1000);
+        }
+
+        function submitTest() {
+            clearInterval(testTimer);
+            let correct = 0;
+            currentTest.questions.forEach((q, index) => {
+                if (studentAnswers[index] === q.a) {
+                    correct++;
+                }
+            });
+            const score = { total: currentTest.questions.length, correct };
+            renderResults(score);
+            navigateTo('results');
+        }
+
+        // --- Results Logic ---
+        function renderResults(score) {
+            const percentage = score.total > 0 ? ((score.correct / score.total) * 100).toFixed(2) : 0;
+            const resultsContainer = document.getElementById('results-container');
+            resultsContainer.innerHTML = `
+                <h2 class="text-3xl font-bold text-gray-800">Test Results</h2>
+                <p class="text-lg">Well done, <span class="font-bold text-indigo-600">${currentStudent.name}</span>!</p>
+                <div class="bg-indigo-50 p-6 rounded-lg">
+                    <p class="text-xl font-semibold">You scored:</p>
+                    <p class="text-5xl md:text-6xl font-bold text-indigo-600 my-4">${score.correct} / ${score.total}</p>
+                    <p class="text-2xl font-semibold text-gray-700">(${percentage}%)</p>
+                </div>
+                <button class="nav-link w-full py-3 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700" data-page="home">
+                    Back to Home
+                </button>
+            `;
+            // Re-add event listener for the new "Back to Home" button
+             document.querySelector('#page-results .nav-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateTo(e.target.getAttribute('data-page'));
+            });
+        }
+        
+        // --- Mock Data Function ---
+        async function addMockData() {
+            console.log(`Adding mock data for appId: ${appId}`);
+            const students = [
+                { name: "Aarav Gupta", pin: "112233", course: "Class 10" },
+                { name: "Saanvi Patel", pin: "445566", course: "Class 8" },
+                { name: "Vivaan Singh", pin: "778899", course: "Class 6" },
+            ];
+            const studentsCollectionPath = collection(db, 'artifacts', appId, 'public', 'data', 'students');
+            for (const student of students) {
+                await setDoc(doc(studentsCollectionPath, student.pin), student);
+            }
+            const tests = [
+                { testName: "Class 10 Science Mock Test", course: "Class 10", questions: [ { q: "What is the chemical formula for water?", o: ["H2O", "CO2", "O2", "NaCl"], a: "H2O" }, { q: "Which planet is known as the Red Planet?", o: ["Earth", "Mars", "Jupiter", "Saturn"], a: "Mars" }, { q: "What is the powerhouse of the cell?", o: ["Nucleus", "Ribosome", "Mitochondrion", "Golgi Apparatus"], a: "Mitochondrion" } ] },
+                { testName: "Class 8 Maths Mock Test", course: "Class 8", questions: [ { q: "What is the value of Pi (to 2 decimal places)?", o: ["3.14", "3.15", "3.16", "3.12"], a: "3.14" }, { q: "What is the square root of 64?", o: ["6", "7", "8", "9"], a: "8" }, { q: "A triangle with all sides equal is called?", o: ["Scalene", "Isosceles", "Equilateral", "Right-angled"], a: "Equilateral" } ] },
+                { testName: "Class 6 English Mock Test", course: "Class 6", questions: [ { q: "What is the opposite of 'happy'?", o: ["Joyful", "Sad", "Angry", "Excited"], a: "Sad" }, { q: "Which of these is a vowel?", o: ["B", "C", "D", "E"], a: "E" }, { q: "What is the plural of 'child'?", o: ["Childs", "Children", "Childes", "Childer"], a: "Children" } ] }
+            ];
+            const testsCollectionPath = collection(db, 'artifacts', appId, 'public', 'data', 'tests');
+            for (const test of tests) {
+                await setDoc(doc(testsCollectionPath), test);
+            }
+            console.log("Mock data added successfully.");
+        };
+
+        // --- Start the App ---
+        document.addEventListener('DOMContentLoaded', initializeAndAuth);
+
+    </script>
+</body>
+</html>
