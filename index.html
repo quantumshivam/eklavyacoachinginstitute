@@ -27,6 +27,18 @@
         main {
             flex-grow: 1;
         }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4f46e5;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -34,19 +46,47 @@
     <!-- Header -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-            <div class="text-lg md:text-2xl font-bold text-indigo-600 cursor-pointer" onclick="navigateTo('home')">
-                Eklavya Coaching Institute
+            <div id="logo-container" class="flex items-center space-x-3 cursor-pointer">
+                <!-- Logo SVG -->
+                <svg class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+                <div class="text-lg md:text-2xl font-bold text-indigo-600">
+                    <span data-lang-key="institute_name">Eklavya Coaching Institute</span>
+                </div>
             </div>
             
             <!-- Desktop Navigation -->
-            <nav class="hidden md:flex space-x-8 items-center">
-                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="home">Home</a>
-                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="courses">Courses</a>
-                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="about">About</a>
-                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="contact">Contact</a>
-                <button class="nav-link bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" data-page="login">
-                    Student Login
-                </button>
+            <nav class="hidden md:flex space-x-6 items-center">
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="home"><span data-lang-key="nav_home">Home</span></a>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="courses"><span data-lang-key="nav_courses">Courses</span></a>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="about"><span data-lang-key="nav_about">About</span></a>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="contact"><span data-lang-key="nav_contact">Contact</span></a>
+                <div id="auth-links-desktop" class="relative">
+                    <button id="student-dropdown-button" class="bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300 flex items-center">
+                        <span data-lang-key="nav_student">Student</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="student-dropdown-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden">
+                        <a href="#" class="nav-link block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-page="login"><span data-lang-key="nav_signin">Sign In</span></a>
+                        <a href="#" class="nav-link block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-page="signup"><span data-lang-key="nav_signup">Sign Up</span></a>
+                    </div>
+                </div>
+                <div id="user-links-desktop" class="hidden items-center space-x-4">
+                     <span id="welcome-user-desktop" class="font-semibold"></span>
+                     <button id="logout-btn-desktop" class="bg-red-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300">
+                        <span data-lang-key="nav_logout">Logout</span>
+                    </button>
+                </div>
+                <!-- Language Switcher -->
+                <div class="flex items-center space-x-2 text-sm">
+                    <span>EN</span>
+                    <label for="language-toggle-desktop" class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" id="language-toggle-desktop" class="sr-only peer language-toggle">
+                        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                    </label>
+                    <span>HI</span>
+                </div>
             </nav>
 
             <!-- Mobile Menu Button -->
@@ -65,13 +105,33 @@
         <!-- Mobile Navigation Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
             <nav class="flex flex-col items-center space-y-4 py-4">
-                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="home">Home</a>
-                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="courses">Courses</a>
-                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="about">About</a>
-                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="contact">Contact</a>
-                <button class="nav-link w-11/12 mx-4 bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" data-page="login">
-                    Student Login
-                </button>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="home"><span data-lang-key="nav_home">Home</span></a>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="courses"><span data-lang-key="nav_courses">Courses</span></a>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="about"><span data-lang-key="nav_about">About</span></a>
+                <a href="#" class="nav-link text-gray-600 hover:text-indigo-600" data-page="contact"><span data-lang-key="nav_contact">Contact</span></a>
+                <div id="auth-links-mobile" class="w-full flex flex-col items-center space-y-2 px-4">
+                    <button class="nav-link w-full bg-indigo-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-indigo-700 transition duration-300" data-page="login">
+                        <span data-lang-key="nav_signin">Sign In</span>
+                    </button>
+                    <button class="nav-link w-full bg-gray-200 text-gray-800 font-semibold px-4 py-2 rounded-lg hover:bg-gray-300 transition duration-300" data-page="signup">
+                        <span data-lang-key="nav_signup">Sign Up</span>
+                    </button>
+                </div>
+                <div id="user-links-mobile" class="hidden w-full flex flex-col items-center space-y-2 px-4">
+                    <span id="welcome-user-mobile" class="font-semibold text-center py-2"></span>
+                    <button id="logout-btn-mobile" class="w-full bg-red-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300">
+                        <span data-lang-key="nav_logout">Logout</span>
+                    </button>
+                </div>
+                 <!-- Language Switcher Mobile -->
+                <div class="flex items-center space-x-2 text-sm pt-2">
+                    <span>EN</span>
+                    <label for="language-toggle-mobile" class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" id="language-toggle-mobile" class="sr-only peer language-toggle">
+                        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                    </label>
+                    <span>HI</span>
+                </div>
             </nav>
         </div>
     </header>
@@ -82,28 +142,48 @@
         <div id="page-home" class="page active">
              <section class="bg-indigo-600 text-white">
                 <div class="container mx-auto px-4 sm:px-6 py-20 text-center">
-                    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">A Foundation for Success</h1>
-                    <p class="text-lg md:text-xl mb-8">Join Eklavya Coaching Institute for excellence in studies from Class 6 to 10.</p>
-                    <button class="nav-link bg-white text-indigo-600 font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition duration-300" data-page="login">
-                        Take a Demo Test
+                    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4"><span data-lang-key="home_title">A Foundation for Success</span></h1>
+                    <p class="text-lg md:text-xl mb-8"><span data-lang-key="home_subtitle">Join Eklavya Coaching Institute for excellence in studies from Class 6 to 12.</span></p>
+                    <button class="nav-link bg-white text-indigo-600 font-bold py-3 px-6 rounded-full hover:bg-gray-200 transition duration-300" data-page="contact">
+                        <span data-lang-key="home_demo_button">Take a Demo Class</span>
                     </button>
                 </div>
             </section>
             <section class="py-12 md:py-16">
                 <div class="container mx-auto px-4 sm:px-6">
-                    <h2 class="text-3xl font-bold text-center mb-12">Why Choose Us?</h2>
+                    <h2 class="text-3xl font-bold text-center mb-12"><span data-lang-key="why_us_title">Why Choose Us?</span></h2>
                     <div class="grid md:grid-cols-3 gap-8 text-center">
                         <div class="p-6 bg-white rounded-lg shadow-lg">
-                            <h3 class="text-xl font-semibold mb-2">Expert Faculty</h3>
-                            <p class="text-gray-600">Learn from the best minds in the industry with years of teaching experience.</p>
+                            <h3 class="text-xl font-semibold mb-2"><span data-lang-key="why_us_1_title">Expert Faculty</span></h3>
+                            <p class="text-gray-600"><span data-lang-key="why_us_1_desc">Learn from the best minds in the industry with years of teaching experience.</span></p>
                         </div>
                         <div class="p-6 bg-white rounded-lg shadow-lg">
-                            <h3 class="text-xl font-semibold mb-2">Comprehensive Material</h3>
-                            <p class="text-gray-600">Get access to well-researched and up-to-date study materials.</p>
+                            <h3 class="text-xl font-semibold mb-2"><span data-lang-key="why_us_2_title">Comprehensive Material</span></h3>
+                            <p class="text-gray-600"><span data-lang-key="why_us_2_desc">Get access to well-researched and up-to-date study materials.</span></p>
                         </div>
                         <div class="p-6 bg-white rounded-lg shadow-lg">
-                            <h3 class="text-xl font-semibold mb-2">Personalized Mentorship</h3>
-                            <p class="text-gray-600">Receive one-on-one guidance to track your progress and clear doubts.</p>
+                            <h3 class="text-xl font-semibold mb-2"><span data-lang-key="why_us_3_title">Personalized Mentorship</span></h3>
+                            <p class="text-gray-600"><span data-lang-key="why_us_3_desc">Receive one-on-one guidance to track your progress and clear doubts.</span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Testimonials Section -->
+            <section class="py-12 md:py-16 bg-gray-100">
+                <div class="container mx-auto px-4 sm:px-6">
+                    <h2 class="text-3xl font-bold text-center mb-12"><span data-lang-key="testimonials_title">What Our Students Say</span></h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <p class="text-gray-600 italic mb-4">"<span data-lang-key="testimonial_1_text">The teachers at Eklavya are fantastic. They clear every doubt and make learning fun. My grades have improved so much!</span>"</p>
+                            <p class="text-right font-semibold text-indigo-600">- <span data-lang-key="testimonial_1_name">Rohan Sharma</span>, <span data-lang-key="testimonial_1_class">Class 10</span></p>
+                        </div>
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <p class="text-gray-600 italic mb-4">"<span data-lang-key="testimonial_2_text">I used to be scared of Maths, but the personalized attention I received here helped me gain confidence. Thank you!</span>"</p>
+                            <p class="text-right font-semibold text-indigo-600">- <span data-lang-key="testimonial_2_name">Priya Singh</span>, <span data-lang-key="testimonial_2_class">Class 8</span></p>
+                        </div>
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <p class="text-gray-600 italic mb-4">"<span data-lang-key="testimonial_3_text">The study material is excellent and covers everything needed for both board exams and competitive tests. Highly recommended.</span>"</p>
+                            <p class="text-right font-semibold text-indigo-600">- <span data-lang-key="testimonial_3_name">Anjali Verma</span>, <span data-lang-key="testimonial_3_class">Class 12</span></p>
                         </div>
                     </div>
                 </div>
@@ -113,27 +193,30 @@
         <!-- Courses Page -->
         <div id="page-courses" class="page">
              <div class="container mx-auto px-4 sm:px-6 py-12 md:py-16">
-                <h2 class="text-3xl font-bold text-center mb-12">Our Programs</h2>
+                <h2 class="text-3xl font-bold text-center mb-12"><span data-lang-key="courses_title">Our Programs</span></h2>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://placehold.co/600x400/3498db/ffffff?text=Class+6-8" alt="Middle School" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">Middle School (Class 6-8)</h3>
-                            <p class="text-gray-600">Building strong foundations in core subjects like Maths, Science, and English.</p>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+                        <img src="https://placehold.co/600x400/3498db/ffffff?text=Middle+School" alt="Middle School" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold mb-2"><span data-lang-key="course_1_title">Middle School (Class 6-8)</span></h3>
+                            <p class="text-gray-700 mb-1"><span class="font-semibold" data-lang-key="subjects">Subjects:</span> <span data-lang-key="course_1_subjects">Maths, Science, English</span></p>
+                            <p class="text-gray-600 mt-auto"><span class="font-semibold" data-lang-key="features">Features:</span> <span data-lang-key="course_1_features">Foundation, Practice Worksheets</span></p>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                         <img src="https://placehold.co/600x400/2ecc71/ffffff?text=Class+9" alt="Class 9" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">Class 9 Foundation</h3>
-                            <p class="text-gray-600">A crucial year to prepare for board exams and competitive tests.</p>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+                         <img src="https://placehold.co/600x400/2ecc71/ffffff?text=High+School" alt="High School" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold mb-2"><span data-lang-key="course_2_title">High School (Class 9-10)</span></h3>
+                            <p class="text-gray-700 mb-1"><span class="font-semibold" data-lang-key="subjects">Subjects:</span> <span data-lang-key="course_2_subjects">Maths, Science, SST</span></p>
+                            <p class="text-gray-600 mt-auto"><span class="font-semibold" data-lang-key="features">Features:</span> <span data-lang-key="course_2_features">Board & Competitive Prep</span></p>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                         <img src="https://placehold.co/600x400/e74c3c/ffffff?text=Class+10" alt="Class 10" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold mb-2">Class 10 Boards</h3>
-                            <p class="text-gray-600">Intensive program focused on achieving excellent results in board examinations.</p>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+                         <img src="https://placehold.co/600x400/e74c3c/ffffff?text=Senior+Secondary" alt="Senior Secondary" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold mb-2"><span data-lang-key="course_3_title">Senior Secondary (Class 11-12)</span></h3>
+                            <p class="text-gray-700 mb-1"><span class="font-semibold" data-lang-key="subjects">Subjects:</span> <span data-lang-key="course_3_subjects">PCM / PCB</span></p>
+                            <p class="text-gray-600 mt-auto"><span class="font-semibold" data-lang-key="features">Features:</span> <span data-lang-key="course_3_features">NEET/JEE Foundation & School Boards</span></p>
                         </div>
                     </div>
                 </div>
@@ -143,35 +226,51 @@
         <!-- About Page -->
         <div id="page-about" class="page">
             <div class="container mx-auto px-4 sm:px-6 py-12 md:py-16">
-                <h2 class="text-3xl font-bold text-center mb-8">About Eklavya Coaching Institute</h2>
-                <p class="text-lg text-gray-700 max-w-3xl mx-auto text-center">
-                    Founded with the vision to provide quality education and mentorship, Eklavya Coaching Institute has been a beacon of hope for thousands of students. Our mission is to empower students with the knowledge and skills to achieve their academic and career goals. We believe in a holistic approach to learning that goes beyond textbooks.
-                </p>
+                <h2 class="text-3xl font-bold text-center mb-8"><span data-lang-key="about_title">About Eklavya Coaching Institute</span></h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto text-center"><span data-lang-key="about_desc">Founded with the vision to provide quality education and mentorship, Eklavya Coaching Institute has been a beacon of hope for thousands of students. Our mission is to empower students with the knowledge and skills to achieve their academic and career goals. We believe in a holistic approach to learning that goes beyond textbooks.</span></p>
             </div>
         </div>
 
         <!-- Contact Page -->
         <div id="page-contact" class="page">
              <div class="container mx-auto px-4 sm:px-6 py-12 md:py-16">
-                <h2 class="text-3xl font-bold text-center mb-12">Get In Touch</h2>
-                <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
-                    <form>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 font-semibold mb-2" for="name">Name</label>
-                            <input class="w-full px-3 py-2 border rounded-lg" type="text" id="name">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 font-semibold mb-2" for="email">Email</label>
-                            <input class="w-full px-3 py-2 border rounded-lg" type="email" id="email">
-                        </div>
-                        <div class="mb-6">
-                            <label class="block text-gray-700 font-semibold mb-2" for="message">Message</label>
-                            <textarea class="w-full px-3 py-2 border rounded-lg" id="message" rows="4"></textarea>
-                        </div>
-                        <button class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700">
-                            Send Message
-                        </button>
-                    </form>
+                <h2 class="text-3xl font-bold text-center mb-12"><span data-lang-key="contact_title">Get In Touch</span></h2>
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <form id="contact-form" action="https://docs.google.com/forms/d/e/1FAIpQLSfm-IXBsQNFOJK8F0WkL326mnLQz9-rmuAMx0HECFudDkLbQQ/formResponse" method="POST" target="hidden_iframe">
+                            <div id="form-fields">
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 font-semibold mb-2" for="name"><span data-lang-key="contact_name">Name</span></label>
+                                    <input class="w-full px-3 py-2 border rounded-lg" type="text" id="name" name="entry.1603676533" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 font-semibold mb-2" for="mobile"><span data-lang-key="contact_mobile">Mobile Number</span></label>
+                                    <input class="w-full px-3 py-2 border rounded-lg" type="tel" id="mobile" name="entry.505293874" required>
+                                </div>
+                                <div class="mb-6">
+                                    <label class="block text-gray-700 font-semibold mb-2" for="message"><span data-lang-key="contact_message">Message</span></label>
+                                    <textarea class="w-full px-3 py-2 border rounded-lg" id="message" name="entry.888696562" rows="4" required></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700">
+                                    <span data-lang-key="contact_send">Send Message</span>
+                                </button>
+                            </div>
+                            <div id="form-success" class="hidden text-center p-4 bg-green-100 text-green-800 rounded-lg">
+                                <p data-lang-key="contact_success">Your message has been sent successfully!</p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                         <h3 class="text-2xl font-bold mb-4"><span data-lang-key="address_title">Our Address</span></h3>
+                         <address class="not-italic text-gray-600 space-y-2">
+                            <p data-lang-key="address_text">Haiderganj Bazar, Near Dhobna Chauraha<br>Ayodhya, Uttar Pradesh – 224205<br>India</p>
+                         </address>
+                         <div class="mt-6">
+                            <a href="https://www.google.com/maps/search/?api=1&query=Haiderganj+Bazar,+Ayodhya" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-300">
+                                <span data-lang-key="view_on_map">View on Google Maps</span>
+                            </a>
+                         </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -180,16 +279,20 @@
         <div id="page-login" class="page">
             <div class="flex-grow flex items-center justify-center bg-gray-100 p-4">
                 <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg m-4">
-                    <h2 class="text-2xl font-bold text-center text-gray-800">Student Test Login</h2>
+                    <h2 class="text-2xl font-bold text-center text-gray-800"><span data-lang-key="login_title">Student Login</span></h2>
                     <form id="login-form" class="space-y-6">
                         <div>
-                            <label for="pin" class="text-sm font-semibold text-gray-600">Enter Your PIN</label>
-                            <input id="pin" type="password" class="w-full px-4 py-2 mt-2 text-lg border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="******">
+                            <label for="student-id-login" class="text-sm font-semibold text-gray-600"><span data-lang-key="login_studentid_label">Student ID</span></label>
+                            <input id="student-id-login" type="text" class="w-full px-4 py-2 mt-2 text-lg border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., S06001">
+                        </div>
+                        <div>
+                            <label for="secret-code-login" class="text-sm font-semibold text-gray-600"><span data-lang-key="login_secret_code">Secret Code</span></label>
+                            <input id="secret-code-login" type="password" class="w-full px-4 py-2 mt-2 text-lg border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
                         </div>
                         <p id="login-error" class="text-sm text-red-500 hidden"></p>
                         <div>
                             <button id="login-button" type="submit" class="w-full py-3 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-400">
-                                Login to Test
+                                <span data-lang-key="login_button">Login</span>
                             </button>
                         </div>
                     </form>
@@ -197,338 +300,563 @@
             </div>
         </div>
 
-        <!-- Test Page -->
-        <div id="page-test" class="page">
-            <div class="container mx-auto px-4 py-8 flex-grow">
-                <div id="test-container" class="max-w-3xl mx-auto bg-white p-6 md:p-8 rounded-xl shadow-2xl">
-                    <!-- Test content will be dynamically inserted here -->
-                </div>
-                 <div id="test-loader" class="text-center p-10">Loading Test...</div>
-            </div>
-        </div>
-
-        <!-- Results Page -->
-        <div id="page-results" class="page">
+        <!-- Signup Page -->
+        <div id="page-signup" class="page">
             <div class="flex-grow flex items-center justify-center bg-gray-100 p-4">
-                <div id="results-container" class="w-full max-w-2xl p-8 space-y-6 bg-white rounded-xl shadow-lg text-center m-4">
-                    <!-- Results content will be dynamically inserted here -->
+                <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg m-4">
+                    <h2 class="text-2xl font-bold text-center text-gray-800"><span data-lang-key="signup_title">Student Signup</span></h2>
+                    <form id="signup-form" class="space-y-6">
+                        <div>
+                            <label for="mobile-signup" class="text-sm font-semibold text-gray-600"><span data-lang-key="signup_mobile_label">Enter Your Registered Mobile Number</span></label>
+                            <input id="mobile-signup" type="tel" class="w-full px-4 py-2 mt-2 text-lg border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., 9876543210">
+                        </div>
+                        <div>
+                            <label for="secret-code-signup" class="text-sm font-semibold text-gray-600"><span data-lang-key="login_secret_code">Secret Code</span></label>
+                            <input id="secret-code-signup" type="password" class="w-full px-4 py-2 mt-2 text-lg border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <p id="signup-error" class="text-sm text-red-500 hidden"></p>
+                        <div>
+                            <button id="signup-button" type="submit" class="w-full py-3 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-400">
+                                <span data-lang-key="signup_button">Verify</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        
-        <!-- Initializing Loader -->
-        <div id="app-loader" class="flex items-center justify-center h-screen bg-gray-100">
-            <div class="text-xl font-semibold text-center p-4">Initializing Institute Portal...</div>
+
+        <!-- Create Profile Page -->
+        <div id="page-create-profile" class="page">
+            <div class="flex-grow flex items-center justify-center bg-gray-100 p-4">
+                <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg m-4">
+                    <h2 class="text-2xl font-bold text-center text-gray-800"><span data-lang-key="profile_title">Create Your Profile</span></h2>
+                    <form id="profile-form" class="space-y-6">
+                        <div>
+                            <label for="profile-name" class="text-sm font-semibold text-gray-600"><span data-lang-key="profile_name">Full Name</span></label>
+                            <input id="profile-name" type="text" class="w-full px-4 py-2 mt-2 text-lg border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" required>
+                        </div>
+                        <div>
+                            <label for="profile-father-name" class="text-sm font-semibold text-gray-600"><span data-lang-key="profile_father_name">Father's Name</span></label>
+                            <input id="profile-father-name" type="text" class="w-full px-4 py-2 mt-2 text-lg border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" required>
+                        </div>
+                        <div>
+                            <label for="profile-class" class="text-sm font-semibold text-gray-600"><span data-lang-key="profile_class">Class</span></label>
+                            <select id="profile-class" class="w-full px-4 py-2 mt-2 text-lg border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" required>
+                                <option value="" disabled selected>Select your class</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+                        <p id="profile-error" class="text-sm text-red-500 hidden"></p>
+                        <div>
+                            <button id="profile-button" type="submit" class="w-full py-3 font-semibold text-white bg-green-600 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-green-400">
+                                <span data-lang-key="profile_button">Save Profile & Generate ID</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
+        <!-- Dashboard Page -->
+        <div id="page-dashboard" class="page">
+            <div class="container mx-auto px-4 sm:px-6 py-12 md:py-16">
+                <h2 id="dashboard-welcome" class="text-3xl font-bold mb-4"></h2>
+                <div id="student-details" class="bg-white p-6 rounded-lg shadow-md mb-8"></div>
+            </div>
+        </div>
     </main>
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white mt-auto">
-        <div class="container mx-auto px-4 sm:px-6 py-4 text-center">
-            <p>&copy; 2024 Eklavya Coaching Institute. All Rights Reserved.</p>
+        <div class="container mx-auto px-4 sm:px-6 py-8 text-center">
+            <div class="mb-4">
+                <h3 class="font-semibold" data-lang-key="address_title">Our Address</h3>
+                <address class="not-italic text-gray-300" data-lang-key="address_text">Haiderganj Bazar, Near Dhobna Chauraha<br>Ayodhya, Uttar Pradesh – 224205<br>India</address>
+            </div>
+            <p><span data-lang-key="footer_text">&copy; 2024 Eklavya Coaching Institute. All Rights Reserved.</span></p>
         </div>
     </footer>
 
+    <!-- Tap-to-call Floating Icon -->
+    <a href="tel:6389443540" aria-label="Call us" class="fixed bottom-5 right-24 z-50 bg-blue-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-transform transform hover:scale-110">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C9.49 21 3 14.51 3 7c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.02.74-.25 1.02l-2.2 2.2z"/>
+        </svg>
+    </a>
 
-    <!-- Firebase and App Logic -->
-    <script type="module">
-        // Import Firebase modules
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, collection, getDocs, setDoc, query, where, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <!-- WhatsApp Floating Icon -->
+    <a href="https://chat.whatsapp.com/Bze6x0WinpWAhkuExxwklr?mode=r_t" aria-label="Chat on WhatsApp" target="_blank" rel="noopener noreferrer" class="fixed bottom-5 right-5 z-50 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-transform transform hover:scale-110">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 4.315 1.731 6.086l-.515 1.876 1.905-.498z"/>
+        </svg>
+    </a>
+    
+    <!-- Hidden iframe for Google Form submission -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
-        // --- Firebase Configuration ---
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-        
-        // --- App State ---
-        let db, auth;
-        let currentStudent = null;
-        let currentTest = null;
-        let testTimer = null;
-        const studentAnswers = {};
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
-        // --- UI Elements ---
-        const pages = document.querySelectorAll('.page');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const appLoader = document.getElementById('app-loader');
-        const mainContent = document.querySelector('main');
-        
-        // --- Navigation Logic ---
-        function navigateTo(pageId) {
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
-            const targetPage = document.getElementById(`page-${pageId}`);
-            if (targetPage) {
-                targetPage.classList.add('active');
-            }
-            window.scrollTo(0, 0); // Scroll to top on page change
+    <!-- App Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Language Data ---
+            const translations = {
+                en: {
+                    institute_name: "Eklavya Coaching Institute",
+                    nav_home: "Home",
+                    nav_courses: "Courses",
+                    nav_about: "About",
+                    nav_contact: "Contact",
+                    nav_student: "Student",
+                    nav_signin: "Sign In",
+                    nav_signup: "Sign Up",
+                    nav_logout: "Logout",
+                    home_title: "A Foundation for Success",
+                    home_subtitle: "Join Eklavya Coaching Institute for excellence in studies from Class 6 to 12.",
+                    home_demo_button: "Take a Demo Class",
+                    why_us_title: "Why Choose Us?",
+                    why_us_1_title: "Expert Faculty",
+                    why_us_1_desc: "Learn from the best minds in the industry with years of teaching experience.",
+                    why_us_2_title: "Comprehensive Material",
+                    why_us_2_desc: "Get access to well-researched and up-to-date study materials.",
+                    why_us_3_title: "Personalized Mentorship",
+                    why_us_3_desc: "Receive one-on-one guidance to track your progress and clear doubts.",
+                    courses_title: "Our Programs",
+                    subjects: "Subjects:",
+                    features: "Features:",
+                    course_1_title: "Middle School (Class 6-8)",
+                    course_1_subjects: "Maths, Science, English",
+                    course_1_features: "Foundation, Practice Worksheets",
+                    course_2_title: "High School (Class 9-10)",
+                    course_2_subjects: "Maths, Science, SST",
+                    course_2_features: "Board & Competitive Prep",
+                    course_3_title: "Senior Secondary (Class 11-12)",
+                    course_3_subjects: "PCM / PCB",
+                    course_3_features: "NEET/JEE Foundation & School Boards",
+                    about_title: "About Eklavya Coaching Institute",
+                    about_desc: "Founded with the vision to provide quality education and mentorship, Eklavya Coaching Institute has been a beacon of hope for thousands of students. Our mission is to empower students with the knowledge and skills to achieve their academic and career goals. We believe in a holistic approach to learning that goes beyond textbooks.",
+                    contact_title: "Get In Touch",
+                    contact_name: "Name",
+                    contact_mobile: "Mobile Number",
+                    contact_message: "Message",
+                    contact_send: "Send Message",
+                    contact_success: "Your message has been sent successfully!",
+                    address_title: "Our Address",
+                    address_text: "Haiderganj Bazar, Near Dhobna Chauraha<br>Ayodhya, Uttar Pradesh – 224205<br>India",
+                    view_on_map: "View on Google Maps",
+                    testimonials_title: "What Our Students Say",
+                    testimonial_1_text: "The teachers at Eklavya are fantastic. They clear every doubt and make learning fun. My grades have improved so much!",
+                    testimonial_1_name: "Rohan Sharma",
+                    testimonial_1_class: "Class 10",
+                    testimonial_2_text: "I used to be scared of Maths, but the personalized attention I received here helped me gain confidence. Thank you!",
+                    testimonial_2_name: "Priya Singh",
+                    testimonial_2_class: "Class 8",
+                    testimonial_3_text: "The study material is excellent and covers everything needed for both board exams and competitive tests. Highly recommended.",
+                    testimonial_3_name: "Anjali Verma",
+                    testimonial_3_class: "Class 12",
+                    login_title: "Student Login",
+                    login_studentid_label: "Student ID",
+                    login_secret_code: "Secret Code",
+                    login_button: "Login",
+                    login_error_invalid: "Invalid Student ID or Secret Code.",
+                    login_error_general: "An error occurred. Please try again.",
+                    login_error_network: "Network error. Please check your connection.",
+                    login_verifying: "Verifying...",
+                    signup_title: "Student Signup",
+                    signup_mobile_label: "Enter Your Registered Mobile Number",
+                    signup_button: "Verify",
+                    profile_title: "Create Your Profile",
+                    profile_name: "Full Name",
+                    profile_father_name: "Father's Name",
+                    profile_class: "Class",
+                    profile_button: "Save Profile & Generate ID",
+                    profile_saving: "Saving...",
+                    profile_error: "Could not save profile. Please try again.",
+                    dashboard_welcome: "Welcome,",
+                    dashboard_student_details: "Student Details",
+                    dashboard_name: "Name:",
+                    dashboard_mobile: "Mobile:",
+                    dashboard_course: "Course:",
+                    dashboard_student_id: "Student ID:",
+                    footer_text: "&copy; 2024 Eklavya Coaching Institute. All Rights Reserved."
+                },
+                hi: {
+                    institute_name: "एकलव्य कोचिंग संस्थान",
+                    nav_home: "होम",
+                    nav_courses: "कोर्स",
+                    nav_about: "हमारे बारे में",
+                    nav_contact: "संपर्क",
+                    nav_student: "छात्र",
+                    nav_signin: "साइन इन करें",
+                    nav_signup: "साइन अप करें",
+                    nav_logout: "लॉग आउट",
+                    home_title: "सफलता की नींव",
+                    home_subtitle: "कक्षा 6 से 12 तक की पढ़ाई में उत्कृष्टता के लिए एकलव्य कोचिंग संस्थान से जुड़ें।",
+                    home_demo_button: "डेमो क्लास लें",
+                    why_us_title: "हमें क्यों चुनें?",
+                    why_us_1_title: "विशेषज्ञ शिक्षक",
+                    why_us_1_desc: "इंडस्ट्री के सर्वश्रेष्ठ शिक्षकों से सीखें जिनके पास वर्षों का शिक्षण अनुभव है।",
+                    why_us_2_title: "व्यापक सामग्री",
+                    why_us_2_desc: "अच्छी तरह से शोध की गई और नवीनतम अध्ययन सामग्री तक पहुँच प्राप्त करें।",
+                    why_us_3_title: "व्यक्तिगत मार्गदर्शन",
+                    why_us_3_desc: "अपनी प्रगति को ट्रैक करने और शंकाओं को दूर करने के लिए व्यक्तिगत मार्गदर्शन प्राप्त करें।",
+                    courses_title: "हमारे कार्यक्रम",
+                    subjects: "विषय:",
+                    features: "विशेषताएँ:",
+                    course_1_title: "मिडिल स्कूल (कक्षा 6-8)",
+                    course_1_subjects: "गणित, विज्ञान, अंग्रेजी",
+                    course_1_features: "फाउंडेशन, प्रैक्टिस वर्कशीट",
+                    course_2_title: "हाई स्कूल (कक्षा 9-10)",
+                    course_2_subjects: "गणित, विज्ञान, सामाजिक विज्ञान",
+                    course_2_features: "बोर्ड और प्रतियोगी तैयारी",
+                    course_3_title: "सीनियर सेकेंडरी (कक्षा 11-12)",
+                    course_3_subjects: "पीसीएम / पीसीबी",
+                    course_3_features: "नीट/जेईई फाउंडेशन और स्कूल बोर्ड",
+                    about_title: "एकलव्य कोचिंग संस्थान के बारे में",
+                    about_desc: "गुणवत्तापूर्ण शिक्षा और मार्गदर्शन प्रदान करने की दृष्टि से स्थापित, एकलव्य कोचिंग संस्थान हजारों छात्रों के लिए आशा की किरण रहा है। हमारा मिशन छात्रों को उनके शैक्षणिक और करियर लक्ष्यों को प्राप्त करने के लिए ज्ञान और कौशल के साथ सशक्त बनाना है। हम सीखने के लिए एक समग्र दृष्टिकोण में विश्वास करते हैं जो पाठ्यपुस्तकों से परे है।",
+                    contact_title: "संपर्क करें",
+                    contact_name: "नाम",
+                    contact_mobile: "मोबाइल नंबर",
+                    contact_message: "संदेश",
+                    contact_send: "संदेश भेजें",
+                    contact_success: "आपका संदेश सफलतापूर्वक भेज दिया गया है!",
+                    address_title: "हमारा पता",
+                    address_text: "हैदरगंज बाजार, धोबना चौराहा के पास<br>अयोध्या, उत्तर प्रदेश - 224205<br>भारत",
+                    view_on_map: "गूगल मैप्स पर देखें",
+                    testimonials_title: "हमारे छात्र क्या कहते हैं",
+                    testimonial_1_text: "एकलव्य के शिक्षक शानदार हैं। वे हर संदेह को दूर करते हैं और सीखने को मजेदार बनाते हैं। मेरे ग्रेड में बहुत सुधार हुआ है!",
+                    testimonial_1_name: "रोहन शर्मा",
+                    testimonial_1_class: "कक्षा 10",
+                    testimonial_2_text: "मुझे पहले गणित से डर लगता था, लेकिन यहां मिले व्यक्तिगत ध्यान ने मुझे आत्मविश्वास हासिल करने में मदद की। धन्यवाद!",
+                    testimonial_2_name: "प्रिया सिंह",
+                    testimonial_2_class: "कक्षा 8",
+                    testimonial_3_text: "अध्ययन सामग्री उत्कृष्ट है और इसमें बोर्ड परीक्षा और प्रतियोगी परीक्षाओं दोनों के लिए आवश्यक सब कुछ शामिल है। अत्यधिक अनुशंसित।",
+                    testimonial_3_name: "अंजलि वर्मा",
+                    testimonial_3_class: "कक्षा 12",
+                    login_title: "छात्र लॉगिन",
+                    login_studentid_label: "छात्र आईडी",
+                    login_secret_code: "गुप्त कोड",
+                    login_button: "लॉगिन करें",
+                    login_error_invalid: "अमान्य छात्र आईडी या गुप्त कोड।",
+                    login_error_general: "एक त्रुटि हुई। कृपया बाद में पुनः प्रयास करें।",
+                    login_error_network: "नेटवर्क त्रुटि। कृपया अपना कनेक्शन जांचें।",
+                    login_verifying: "सत्यापित हो रहा है...",
+                    signup_title: "छात्र साइनअप",
+                    signup_mobile_label: "अपना पंजीकृत मोबाइल नंबर दर्ज करें",
+                    signup_button: "सत्यापित करें",
+                    profile_title: "अपनी प्रोफाइल बनाएं",
+                    profile_name: "पूरा नाम",
+                    profile_father_name: "पिता का नाम",
+                    profile_class: "कक्षा",
+                    profile_button: "प्रोफ़ाइल सहेजें और आईडी बनाएं",
+                    profile_saving: "सहेज रहा है...",
+                    profile_error: "प्रोफ़ाइल सहेजी नहीं जा सकी। कृपया पुन: प्रयास करें।",
+                    dashboard_welcome: "स्वागत है,",
+                    dashboard_student_details: "छात्र विवरण",
+                    dashboard_name: "नाम:",
+                    dashboard_mobile: "मोबाइल:",
+                    dashboard_course: "कोर्स:",
+                    dashboard_student_id: "छात्र आईडी:",
+                    footer_text: "&copy; 2024 एकलव्य कोचिंग संस्थान। सर्वाधिकार सुरक्षित।"
+                }
+            };
             
-            // Close mobile menu on navigation
+            let currentStudent = null;
+            let currentLanguage = 'en';
+            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQ00PDPTLoWYUTzf2uawTOu6QJpeWXU932APYOnynpE6HhWbfhDKoz519ZsD36GTcM/exec";
+
+            // --- UI Elements ---
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // --- Language Switcher Logic ---
+            function renderLanguage(lang) {
+                currentLanguage = lang;
+                const langData = translations[lang];
+                document.querySelectorAll('[data-lang-key]').forEach(el => {
+                    const key = el.getAttribute('data-lang-key');
+                    if (langData[key]) {
+                        el.innerHTML = langData[key];
+                    }
+                });
+            }
+
+            document.querySelectorAll('.language-toggle').forEach(toggle => {
+                toggle.addEventListener('change', (e) => {
+                    const lang = e.target.checked ? 'hi' : 'en';
+                    renderLanguage(lang);
+                    // Sync both toggles
+                    document.querySelectorAll('.language-toggle').forEach(t => t.checked = e.target.checked);
+                });
+            });
+
+            // --- Navigation Logic ---
+            function navigateTo(pageId) {
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                const targetPage = document.getElementById(`page-${pageId}`);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                }
+                window.scrollTo(0, 0); // Scroll to top on page change
+                
+                // Close mobile menu on navigation
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.classList.add('hidden');
+                document.getElementById('menu-open-icon').classList.remove('hidden');
+                document.getElementById('menu-close-icon').classList.add('hidden');
+            }
+            window.navigateTo = navigateTo; // Make navigateTo globally accessible
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = link.getAttribute('data-page');
+                    navigateTo(pageId);
+                });
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.add('hidden');
-            document.getElementById('menu-open-icon').classList.remove('hidden');
-            document.getElementById('menu-close-icon').classList.add('hidden');
-        }
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const pageId = link.getAttribute('data-page');
-                navigateTo(pageId);
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                document.getElementById('menu-open-icon').classList.toggle('hidden');
+                document.getElementById('menu-close-icon').classList.toggle('hidden');
             });
-        });
-
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            document.getElementById('menu-open-icon').classList.toggle('hidden');
-            document.getElementById('menu-close-icon').classList.toggle('hidden');
-        });
-
-        // --- Firebase Initialization and Auth ---
-        async function initializeAndAuth() {
-            try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                setLogLevel('debug');
-
-                onAuthStateChanged(auth, async (user) => {
-                    if (user) {
-                        console.log("User is signed in:", user.uid);
-                        // Uncomment the line below ONLY for the first time to populate your Firestore DB.
-                        // await addMockData(); 
-                        appLoader.style.display = 'none';
-                        mainContent.style.display = 'block';
-                    } else {
-                         // Handle signed out state if necessary
-                    }
-                });
-
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (error) {
-                console.error("Initialization Error:", error);
-                appLoader.innerHTML = `<div class="text-xl font-semibold text-center p-4 text-red-500">Error initializing application. Please refresh.</div>`;
-            }
-        }
-        
-        // --- Login Logic ---
-        const loginForm = document.getElementById('login-form');
-        const loginButton = document.getElementById('login-button');
-        const pinInput = document.getElementById('pin');
-        const loginError = document.getElementById('login-error');
-
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const pin = pinInput.value;
-            if (!pin) {
-                loginError.textContent = 'Please enter your PIN.';
-                loginError.classList.remove('hidden');
-                return;
-            }
-
-            loginButton.disabled = true;
-            loginButton.textContent = 'Verifying...';
-            loginError.classList.add('hidden');
-
-            try {
-                const studentDocRef = doc(db, "artifacts", appId, "public", "data", "students", pin);
-                const studentDoc = await getDoc(studentDocRef);
-
-                if (studentDoc.exists()) {
-                    currentStudent = { pin, ...studentDoc.data() };
-                    navigateTo('test');
-                    loadTest();
-                } else {
-                    loginError.textContent = 'Invalid PIN. Please check and try again.';
-                    loginError.classList.remove('hidden');
-                }
-            } catch (err) {
-                console.error("Login Error:", err);
-                loginError.textContent = 'An error occurred. Please try again later.';
-                loginError.classList.remove('hidden');
-            } finally {
-                loginButton.disabled = false;
-                loginButton.textContent = 'Login to Test';
-                pinInput.value = '';
-            }
-        });
-
-        // --- Test Logic ---
-        const testContainer = document.getElementById('test-container');
-        const testLoader = document.getElementById('test-loader');
-
-        async function loadTest() {
-            testLoader.style.display = 'block';
-            testContainer.innerHTML = '';
-
-            try {
-                const testsCollectionRef = collection(db, "artifacts", appId, "public", "data", "tests");
-                const q = query(testsCollectionRef, where("course", "==", currentStudent.course));
-                const querySnapshot = await getDocs(q);
-
-                if (!querySnapshot.empty) {
-                    currentTest = querySnapshot.docs[0].data();
-                    renderQuestion(0);
-                    startTimer(300); // 5 minutes
-                } else {
-                    testContainer.innerHTML = `<p class="text-center text-red-500">No test found for your course.</p>`;
-                }
-            } catch (error) {
-                console.error("Error fetching test:", error);
-                testContainer.innerHTML = `<p class="text-center text-red-500">Failed to load the test.</p>`;
-            } finally {
-                 testLoader.style.display = 'none';
-            }
-        }
-
-        function renderQuestion(index) {
-            const question = currentTest.questions[index];
-            const optionsHtml = question.o.map((option, i) => `
-                <button data-answer="${option}" class="option-btn w-full text-left p-4 rounded-lg border-2 transition-all duration-200 ${studentAnswers[index] === option ? 'bg-indigo-500 border-indigo-500 text-white' : 'bg-white border-gray-300 hover:border-indigo-400'}">
-                    ${option}
-                </button>
-            `).join('');
-
-            const navigationHtml = `
-                <div class="flex justify-between items-center mt-8">
-                    <button id="prev-btn" ${index === 0 ? 'disabled' : ''} class="px-6 py-2 font-semibold text-white bg-gray-500 rounded-lg disabled:bg-gray-300">Previous</button>
-                    ${index === currentTest.questions.length - 1 ? 
-                        `<button id="submit-btn" class="px-6 py-2 font-semibold text-white bg-green-600 rounded-lg hover:bg-green-700">Submit Test</button>` :
-                        `<button id="next-btn" class="px-6 py-2 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Next</button>`
-                    }
-                </div>
-            `;
-
-            testContainer.innerHTML = `
-                <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-                    <h2 class="text-xl md:text-2xl font-bold text-indigo-700 text-center sm:text-left">${currentTest.testName}</h2>
-                    <div id="timer" class="text-lg font-semibold bg-red-100 text-red-700 px-4 py-2 rounded-lg shrink-0"></div>
-                </div>
-                <div class="mb-8">
-                    <p class="text-lg font-semibold mb-4">Question ${index + 1} of ${currentTest.questions.length}</p>
-                    <p class="text-xl text-gray-800">${question.q}</p>
-                </div>
-                <div class="space-y-4">${optionsHtml}</div>
-                ${navigationHtml}
-            `;
-
-            // Add event listeners
-            document.querySelectorAll('.option-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    studentAnswers[index] = btn.getAttribute('data-answer');
-                    renderQuestion(index); // Re-render to show selection
-                });
-            });
-
-            if (document.getElementById('next-btn')) {
-                document.getElementById('next-btn').addEventListener('click', () => renderQuestion(index + 1));
-            }
-            if (document.getElementById('prev-btn')) {
-                document.getElementById('prev-btn').addEventListener('click', () => renderQuestion(index - 1));
-            }
-            if (document.getElementById('submit-btn')) {
-                document.getElementById('submit-btn').addEventListener('click', submitTest);
-            }
-        }
-
-        function startTimer(duration) {
-            let timeLeft = duration;
-            const timerEl = document.getElementById('timer');
             
-            clearInterval(testTimer); // Clear any existing timer
-            testTimer = setInterval(() => {
-                const minutes = Math.floor(timeLeft / 60);
-                let seconds = timeLeft % 60;
-                seconds = seconds < 10 ? '0' + seconds : seconds;
-                timerEl.textContent = `Time Left: ${minutes}:${seconds}`;
-
-                if (--timeLeft < 0) {
-                    clearInterval(testTimer);
-                    submitTest();
-                }
-            }, 1000);
-        }
-
-        function submitTest() {
-            clearInterval(testTimer);
-            let correct = 0;
-            currentTest.questions.forEach((q, index) => {
-                if (studentAnswers[index] === q.a) {
-                    correct++;
-                }
+            // Student Dropdown Toggle
+            const studentDropdownButton = document.getElementById('student-dropdown-button');
+            const studentDropdownMenu = document.getElementById('student-dropdown-menu');
+            studentDropdownButton.addEventListener('click', () => {
+                studentDropdownMenu.classList.toggle('hidden');
             });
-            const score = { total: currentTest.questions.length, correct };
-            renderResults(score);
-            navigateTo('results');
-        }
+            
+            // --- Contact Form Logic ---
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', (e) => {
+                 // We don't prevent default, allowing the form to submit to the iframe
+                
+                // Show success message after a short delay
+                setTimeout(() => {
+                    document.getElementById('form-fields').classList.add('hidden');
+                    document.getElementById('form-success').classList.remove('hidden');
+                }, 500);
+            });
 
-        // --- Results Logic ---
-        function renderResults(score) {
-            const percentage = score.total > 0 ? ((score.correct / score.total) * 100).toFixed(2) : 0;
-            const resultsContainer = document.getElementById('results-container');
-            resultsContainer.innerHTML = `
-                <h2 class="text-3xl font-bold text-gray-800">Test Results</h2>
-                <p class="text-lg">Well done, <span class="font-bold text-indigo-600">${currentStudent.name}</span>!</p>
-                <div class="bg-indigo-50 p-6 rounded-lg">
-                    <p class="text-xl font-semibold">You scored:</p>
-                    <p class="text-5xl md:text-6xl font-bold text-indigo-600 my-4">${score.correct} / ${score.total}</p>
-                    <p class="text-2xl font-semibold text-gray-700">(${percentage}%)</p>
-                </div>
-                <button class="nav-link w-full py-3 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700" data-page="home">
-                    Back to Home
-                </button>
-            `;
-            // Re-add event listener for the new "Back to Home" button
-             document.querySelector('#page-results .nav-link').addEventListener('click', (e) => {
+            // --- Login Logic ---
+            const loginForm = document.getElementById('login-form');
+            const loginButton = document.getElementById('login-button');
+            const studentIdInput = document.getElementById('student-id-login');
+            const secretCodeInputLogin = document.getElementById('secret-code-login');
+            const loginError = document.getElementById('login-error');
+
+            loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                navigateTo(e.target.getAttribute('data-page'));
+                const studentId = studentIdInput.value;
+                const secretCode = secretCodeInputLogin.value;
+
+                if (!studentId || !secretCode) {
+                    loginError.textContent = "Please fill both fields.";
+                    loginError.classList.remove('hidden');
+                    return;
+                }
+
+                loginButton.querySelector('span').textContent = translations[currentLanguage].login_verifying;
+                loginButton.disabled = true;
+                loginError.classList.add('hidden');
+
+                try {
+                    const response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ action: 'login', studentId: studentId, secretCode: secretCode }),
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    const data = await response.json();
+
+                    if (data.success && data.user.found) {
+                        currentStudent = data.user;
+                        updateUIAfterLogin();
+                        navigateTo('dashboard');
+                        renderDashboard();
+                    } else {
+                        loginError.textContent = translations[currentLanguage].login_error_invalid;
+                        loginError.classList.remove('hidden');
+                    }
+                } catch (err) {
+                    console.error("Login Error:", err);
+                    if (err instanceof TypeError) { // Network error
+                        loginError.textContent = translations[currentLanguage].login_error_network;
+                    } else {
+                        loginError.textContent = translations[currentLanguage].login_error_general;
+                    }
+                    loginError.classList.remove('hidden');
+                } finally {
+                    loginButton.disabled = false;
+                    loginButton.querySelector('span').textContent = translations[currentLanguage].login_button;
+                }
             });
-        }
-        
-        // --- Mock Data Function ---
-        async function addMockData() {
-            console.log(`Adding mock data for appId: ${appId}`);
-            const students = [
-                { name: "Aarav Gupta", pin: "112233", course: "Class 10" },
-                { name: "Saanvi Patel", pin: "445566", course: "Class 8" },
-                { name: "Vivaan Singh", pin: "778899", course: "Class 6" },
-            ];
-            const studentsCollectionPath = collection(db, 'artifacts', appId, 'public', 'data', 'students');
-            for (const student of students) {
-                await setDoc(doc(studentsCollectionPath, student.pin), student);
-            }
-            const tests = [
-                { testName: "Class 10 Science Mock Test", course: "Class 10", questions: [ { q: "What is the chemical formula for water?", o: ["H2O", "CO2", "O2", "NaCl"], a: "H2O" }, { q: "Which planet is known as the Red Planet?", o: ["Earth", "Mars", "Jupiter", "Saturn"], a: "Mars" }, { q: "What is the powerhouse of the cell?", o: ["Nucleus", "Ribosome", "Mitochondrion", "Golgi Apparatus"], a: "Mitochondrion" } ] },
-                { testName: "Class 8 Maths Mock Test", course: "Class 8", questions: [ { q: "What is the value of Pi (to 2 decimal places)?", o: ["3.14", "3.15", "3.16", "3.12"], a: "3.14" }, { q: "What is the square root of 64?", o: ["6", "7", "8", "9"], a: "8" }, { q: "A triangle with all sides equal is called?", o: ["Scalene", "Isosceles", "Equilateral", "Right-angled"], a: "Equilateral" } ] },
-                { testName: "Class 6 English Mock Test", course: "Class 6", questions: [ { q: "What is the opposite of 'happy'?", o: ["Joyful", "Sad", "Angry", "Excited"], a: "Sad" }, { q: "Which of these is a vowel?", o: ["B", "C", "D", "E"], a: "E" }, { q: "What is the plural of 'child'?", o: ["Childs", "Children", "Childes", "Childer"], a: "Children" } ] }
-            ];
-            const testsCollectionPath = collection(db, 'artifacts', appId, 'public', 'data', 'tests');
-            for (const test of tests) {
-                await setDoc(doc(testsCollectionPath), test);
-            }
-            console.log("Mock data added successfully.");
-        };
+            
+             // --- Signup Logic ---
+            const signupForm = document.getElementById('signup-form');
+            const signupButton = document.getElementById('signup-button');
+            const mobileSignupInput = document.getElementById('mobile-signup');
+            const secretCodeSignupInput = document.getElementById('secret-code-signup');
+            const signupError = document.getElementById('signup-error');
 
-        // --- Start the App ---
-        document.addEventListener('DOMContentLoaded', initializeAndAuth);
+            signupForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const mobile = mobileSignupInput.value;
+                const secretCode = secretCodeSignupInput.value;
 
+                if (!mobile || !secretCode) {
+                    signupError.textContent = "Please fill both fields.";
+                    signupError.classList.remove('hidden');
+                    return;
+                }
+
+                signupButton.querySelector('span').textContent = translations[currentLanguage].login_verifying;
+                signupButton.disabled = true;
+                signupError.classList.add('hidden');
+
+                try {
+                    const response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({ action: 'verifyMobile', mobile: mobile, secretCode: secretCode }),
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    const data = await response.json();
+
+                    if (data.success && data.user.found) {
+                        if (data.user.isRegistered) {
+                            signupError.textContent = "This mobile number is already registered. Please Sign In.";
+                            signupError.classList.remove('hidden');
+                        } else {
+                            currentStudent = { mobile: mobile };
+                            navigateTo('create-profile');
+                        }
+                    } else {
+                        signupError.textContent = "Mobile number not found in our records.";
+                        signupError.classList.remove('hidden');
+                    }
+                } catch (err) {
+                    console.error("Signup Error:", err);
+                    if (err instanceof TypeError) {
+                        signupError.textContent = translations[currentLanguage].login_error_network;
+                    } else {
+                        signupError.textContent = translations[currentLanguage].login_error_general;
+                    }
+                    signupError.classList.remove('hidden');
+                } finally {
+                    signupButton.disabled = false;
+                    signupButton.querySelector('span').textContent = translations[currentLanguage].signup_button;
+                }
+            });
+
+            // --- Profile Creation Logic ---
+            const profileForm = document.getElementById('profile-form');
+            const profileButton = document.getElementById('profile-button');
+            const profileError = document.getElementById('profile-error');
+
+            profileForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                profileButton.querySelector('span').textContent = translations[currentLanguage].profile_saving;
+                profileButton.disabled = true;
+                profileError.classList.add('hidden');
+
+                const profileData = {
+                    action: 'updateDetails',
+                    mobile: currentStudent.mobile,
+                    name: document.getElementById('profile-name').value,
+                    fatherName: document.getElementById('profile-father-name').value,
+                    class: document.getElementById('profile-class').value,
+                };
+
+                try {
+                    const response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        body: JSON.stringify(profileData),
+                        headers: { 'Content-Type': 'application/json' },
+                    });
+                    const result = await response.json();
+
+                    if (result.success) {
+                        currentStudent = result.student;
+                        updateUIAfterLogin();
+                        navigateTo('dashboard');
+                        renderDashboard();
+                    } else {
+                        throw new Error(result.message || 'Failed to save profile.');
+                    }
+                } catch (err) {
+                    console.error("Profile Save Error:", err);
+                    if (err instanceof TypeError) {
+                        profileError.textContent = translations[currentLanguage].login_error_network;
+                    } else {
+                        profileError.textContent = translations[currentLanguage].profile_error;
+                    }
+                    profileError.classList.remove('hidden');
+                } finally {
+                    profileButton.disabled = false;
+                    profileButton.querySelector('span').textContent = translations[currentLanguage].profile_button;
+                }
+            });
+
+            function updateUIAfterLogin() {
+                document.getElementById('auth-links-desktop').classList.add('hidden');
+                document.getElementById('user-links-desktop').classList.remove('hidden');
+                document.getElementById('welcome-user-desktop').textContent = `${translations[currentLanguage].dashboard_welcome} ${currentStudent.name}`;
+                
+                document.getElementById('auth-links-mobile').classList.add('hidden');
+                document.getElementById('user-links-mobile').classList.remove('hidden');
+                document.getElementById('welcome-user-mobile').textContent = `${translations[currentLanguage].dashboard_welcome} ${currentStudent.name}`;
+            }
+
+            function updateUIAfterLogout() {
+                document.getElementById('auth-links-desktop').classList.remove('hidden');
+                document.getElementById('user-links-desktop').classList.add('hidden');
+                
+                document.getElementById('auth-links-mobile').classList.remove('hidden');
+                document.getElementById('user-links-mobile').classList.add('hidden');
+            }
+
+            document.getElementById('logout-btn-desktop').addEventListener('click', logout);
+            document.getElementById('logout-btn-mobile').addEventListener('click', logout);
+
+            function logout() {
+                currentStudent = null;
+                updateUIAfterLogout();
+                navigateTo('home');
+            }
+
+            // --- Dashboard Logic ---
+            function renderDashboard() {
+                const welcomeEl = document.getElementById('dashboard-welcome');
+                const detailsEl = document.getElementById('student-details');
+
+                welcomeEl.innerHTML = `<span data-lang-key="dashboard_welcome">Welcome,</span> ${currentStudent.name}!`;
+                
+                detailsEl.innerHTML = `
+                    <h3 class="text-xl font-semibold mb-4" data-lang-key="dashboard_student_details">Student Details</h3>
+                    <div class="space-y-2">
+                        <p><strong data-lang-key="dashboard_name">Name:</strong> ${currentStudent.name}</p>
+                        <p><strong data-lang-key="dashboard_mobile">Mobile:</strong> ${currentStudent.mobile}</p>
+                        <p><strong data-lang-key="dashboard_course">Course:</strong> ${currentStudent.course}</p>
+                        <p><strong data-lang-key="dashboard_student_id">Student ID:</strong> ${currentStudent.studentId}</p>
+                    </div>
+                `;
+                renderLanguage(currentLanguage);
+            }
+
+            // --- Initialize App ---
+            renderLanguage('en'); // Set initial language
+            document.getElementById('logo-container').addEventListener('click', () => navigateTo('home'));
+        });
     </script>
 </body>
 </html>
